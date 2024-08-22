@@ -1,0 +1,121 @@
+<?php
+session_start();
+require_once 'db_conexion.php';
+if (isset($_POST['delete'])) {
+	
+	$email = $_SESSION['email'];
+	if (!empty($email)){
+		$query = $cnnPDO->prepare('DELETE from users WHERE email =:email');
+		$query->bindParam(':email', $email);
+		
+		$query->execute(); 
+        header('location:index.html');
+	}
+	
+
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/63c8f1ddb0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Gloss</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Todo sobre el Lip Gloss</h1>
+            <nav>
+                <a href="#que-es">¿Qué es?</a>
+                <a href="#beneficios">Beneficios</a>
+                <a href="#tipos">Tipos</a>
+                <a href="#aplicar">Cómo aplicar</a>
+                <a href="#productos">Productos Populares</a>
+                <a href="#cuidado">Cuidado de los Labios</a>
+                <a href="editar.php" style="text-transform: uppercase; font-weight: 900; font-size: 14px;">Editar mi perfil</a>
+                <a href="logout.php" style="text-transform: uppercase; font-weight: 900; font-size: 14px;">Cerrar Sesion</a>
+            </nav>
+            <div class="botones">
+                <h3>Bienvenid@ <?php echo $_SESSION['nombre']?></h3>
+                <form method="post">
+                    <input type="hidden" value="<?php echo $_SESSION['email']?>">
+                    <button type="submit" name="delete" class="btn btn-crear-cuenta">Eliminar perfil</button>
+                </form>
+                <a href="formcontacto.php" style="text-transform: uppercase; font-weight: 900; font-size: 14px;" class="btn btn-crear-cuenta">Contactar</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="que-es" class="container">
+            <h2>¿Qué es el Lip Gloss?</h2>
+            <p>El lip gloss es un producto de maquillaje que se utiliza para darle brillo a los labios. A diferencia de los labiales, que tienen una textura más densa y color sólido, el lip gloss ofrece un acabado brillante y a menudo transparente o semitransparente.</p>
+            <img src="https://zoevacosmetics.eu/cdn/shop/products/zoeva-pout-plumper-lipgloss-product_swatch_1445x.jpg?v=1676647781" alt="Ejemplo de Lip Gloss">
+        </section>
+
+        <section id="beneficios" class="container">
+            <h2>Beneficios del Lip Gloss</h2>
+            <ul>
+                <li>Añade brillo y resplandor a los labios.</li>
+                <li>Puedes usarlo solo o encima de un labial.</li>
+                <li>Disponible en una amplia variedad de colores y acabados.</li>
+                <li>Puede hidratar y proteger los labios.</li>
+            </ul>
+        </section>
+
+        <section id="tipos" class="container">
+            <h2>Tipos de Lip Gloss</h2>
+            <p>Existen varios tipos de lip gloss disponibles en el mercado:</p>
+            <ul>
+                <li><strong>Transparente:</strong> Ideal para un look natural.</li>
+                <li><strong>Con color:</strong> Añade un toque de color suave a los labios.</li>
+                <li><strong>Con brillo:</strong> Contiene partículas brillantes para un efecto deslumbrante.</li>
+                <li><strong>Hidratante:</strong> Enriquecido con ingredientes que nutren los labios.</li>
+            </ul>
+            <img src="https://adaraparis.com.mx/cdn/shop/products/LG007-GlossCrystal_3_900x.jpg?v=1678999031" alt="Diferentes tipos de Lip Gloss">
+        </section>
+
+        <section id="aplicar" class="container">
+            <h2>Cómo aplicar Lip Gloss</h2>
+            <p>Aplicar lip gloss es muy sencillo. Simplemente desliza el aplicador sobre tus labios, comenzando desde el centro y extendiéndolo hacia las esquinas. Para un acabado más duradero, puedes aplicar una capa ligera de labial debajo.</p>
+        </section>
+
+        <section id="productos" class="container">
+            <h2>Productos Populares</h2>
+            <p>Aquí te presentamos algunos de los lip gloss más populares y recomendados por expertos:</p>
+            <ul>
+                <li><strong>Fenty Beauty Gloss Bomb:</strong> Con un brillo universal que favorece a todos los tonos de piel.</li>
+                <li><strong>Dior Addict Lip Maximizer:</strong> Un gloss que añade volumen e hidratación.</li>
+                <li><strong>NYX Butter Gloss:</strong> Accesible y disponible en una gran variedad de colores.</li>
+                <li><strong>Glossier Lip Gloss:</strong> Ofrece un acabado de cristal y es altamente hidratante.</li>
+            </ul>
+            <img src="https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwaf4bdaaf/Y0124000/Y0124000_C012400001_E01_GHC.jpg?sw=800" alt="Productos de Lip Gloss">
+        </section>
+
+        <section id="cuidado" class="container">
+            <h2>Cuidado de los Labios</h2>
+            <p>Para mantener tus labios en perfecto estado, sigue estos consejos:</p>
+            <ul>
+                <li>Exfolia tus labios regularmente para eliminar las células muertas.</li>
+                <li>Hidrata tus labios diariamente con un bálsamo labial.</li>
+                <li>Evita lamerte los labios, ya que puede causar resequedad.</li>
+                <li>Usa protector solar labial para protegerlos de los rayos UV.</li>
+            </ul>
+            <img src="https://s1.elespanol.com/2022/09/28/actualidad/706690023_227555594_1706x1280.jpg" alt="Cuidado de los labios">
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Todo sobre Lip Gloss</p><br>
+            <p>Visita nuestras redes Sociales</p>
+            <a href="https://www.facebook.com/beautyandstylebylorniux"><i class="fa-brands fa-facebook" style="font-size: 30px; color:#ffffff;"></i></a>
+            <a href="https://www.instagram.com/rivkacosmeticsgdl/?img_index=1"><i class="fa-brands fa-instagram" style="font-size: 30px; color:#ffffff;"></i></a>
+        </div>
+    </footer>
+</body>
+</html>
